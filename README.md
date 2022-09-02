@@ -1,7 +1,3 @@
-# Inventory Decay
-
-![image](https://user-images.githubusercontent.com/80186604/163069477-114e14ec-bec1-4f93-8421-42017c605f15.png)
-
 ## Credits:
 >### aj - aj-inventory
 >### loljoshie - lj-inventory
