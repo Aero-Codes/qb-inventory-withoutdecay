@@ -30,7 +30,7 @@ exports['qb-inventory']:toggleItem(0, itemName, 1)
 ```
 
 
-### REPLACE HasItem 
+### REPLACE HASITEM CALLBACK
 ```lua
 QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
         if hasitem then
