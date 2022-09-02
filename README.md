@@ -9,7 +9,7 @@
 * Drag source files into your resources folder
 * Rename folder from `lj-inventory-main` to `lj-inventory`
 
-### REPLACE
+### REPLACE ADDITEM EVENT
 ```lua
 TriggerServerEvent("QBCore:Server:AddItem, item, 1)
 ```
@@ -19,7 +19,7 @@ TriggerServerEvent("QBCore:Server:AddItem, item, 1)
 exports['qb-inventory']:toggleItem(1, itemName, 1)
 ```
 
-### REPLACE
+### REPLACE REMOVEITEM EVENT
 ```lua
 TriggerServerEvent("QBCore:Server:RemoveItem, item, 1)
 ```
@@ -30,13 +30,13 @@ exports['qb-inventory']:toggleItem(0, itemName, 1)
 ```
 
 
-### REPLACE
+### REPLACE HasItem 
 ```lua
-QBCore.Functions.HasItem("sandwich", function(hasitem)
+QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
         if hasitem then
               -- Has Item
         end
-end)
+end, "sandwich")
 ```
 
 ### TO
