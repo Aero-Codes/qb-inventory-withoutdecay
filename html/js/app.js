@@ -67,7 +67,7 @@ $(document).on("dblclick", ".item-slot", function(e) {
     if (ItemData) {
         Inventory.Close();
         $.post(
-            $.post(`https://${GetParentResourceName()}/UseItem`,
+            `https://${GetParentResourceName()}/UseItem`,
             JSON.stringify({
                 inventory: ItemInventory,
                 item: ItemData,
@@ -249,7 +249,8 @@ $(document).on("click", ".weapon-attachments-back", function(e) {
 });
 
 function FormatAttachmentInfo(data) {
-    $.post(`https://${GetParentResourceName()}/GetWeaponData`,
+    $.post(
+        `https://${GetParentResourceName()}/GetWeaponData`,
         JSON.stringify({
             weapon: data.name,
             ItemData: ClickedItemData,
@@ -346,7 +347,8 @@ function handleAttachmentDrag() {
         accept: ".weapon-attachment",
         hoverClass: "weapon-attachments-remove-hover",
         drop: function(event, ui) {
-            $.post(`https://${GetParentResourceName()}/RemoveAttachment`,
+            $.post(
+                `https://${GetParentResourceName()}/RemoveAttachment`,
                 JSON.stringify({
                     AttachmentData: AttachmentDraggingData,
                     WeaponData: ClickedItemData,
@@ -413,7 +415,8 @@ $(document).on("click", "#weapon-attachments", function(e) {
         AttachmentScreenActive = true;
         FormatAttachmentInfo(ClickedItemData);
     } else {
-        $.post(`https://${GetParentResourceName()}/Notify`,
+        $.post(
+            `https://${GetParentResourceName()}/Notify`,
             JSON.stringify({
                 message: "Attachments are unavailable for this gun.",
                 type: "error",
@@ -773,20 +776,15 @@ function handleDragDrop() {
             toSlot = $(this).attr("data-slot");
             toInventory = $(this).parent();
             toAmount = $("#item-amount").val();
-            var toDataUnique = toInventory.find("[data-slot=" + toSlot + "]").data("item");
-            var fromDataUnique = fromInventory.find("[data-slot=" + fromSlot + "]").data("item");
+
             if (fromSlot == toSlot && fromInventory == toInventory) {
                 return;
             }
             if (toAmount >= 0) {
-                if (toDataUnique && fromDataUnique && toDataUnique.unique == fromDataUnique.unique) {
-                    return;
-                } else {
-                    if (
-                        updateweights(fromSlot, toSlot, fromInventory, toInventory, toAmount)
-                    ) {
-                        swap(fromSlot, toSlot, fromInventory, toInventory, toAmount);
-                    }
+                if (
+                    updateweights(fromSlot, toSlot, fromInventory, toInventory, toAmount)
+                ) {
+                    swap(fromSlot, toSlot, fromInventory, toInventory, toAmount);
                 }
             }
         },
@@ -804,7 +802,8 @@ function handleDragDrop() {
                 if (fromData.shouldClose) {
                     Inventory.Close();
                 }
-                $.post(`https://${GetParentResourceName()}/UseItem`,
+                $.post(
+                    `https://${GetParentResourceName()}/UseItem`,
                     JSON.stringify({
                         inventory: fromInventory,
                         item: fromData,
@@ -827,7 +826,8 @@ function handleDragDrop() {
                 amount = fromData.amount;
             }
             $(this).css("background", "rgba(35,35,35, 0.7");
-            $.post(`https://${GetParentResourceName()}/DropItem`,
+            $.post(
+                `https://${GetParentResourceName()}/DropItem`,
                 JSON.stringify({
                     inventory: fromInventory,
                     item: fromData,
@@ -1079,7 +1079,8 @@ var combineslotData = null;
 $(document).on("click", ".CombineItem", function(e) {
     e.preventDefault();
     if (combineslotData.toData.combinable.anim != null) {
-        $.post(`https://${GetParentResourceName()}/combineWithAnim`,
+        $.post(
+            `https://${GetParentResourceName()}/combineWithAnim`,
             JSON.stringify({
                 combineData: combineslotData.toData.combinable,
                 usedItem: combineslotData.toData.name,
@@ -1087,7 +1088,8 @@ $(document).on("click", ".CombineItem", function(e) {
             })
         );
     } else {
-        $.post(`https://${GetParentResourceName()}/combineItem`,
+        $.post(
+            `https://${GetParentResourceName()}/combineItem`,
             JSON.stringify({
                 reward: combineslotData.toData.combinable.reward,
                 toItem: combineslotData.toData.name,
@@ -1212,7 +1214,8 @@ function optionSwitch(
             );
     }
 
-    $.post(`https://${GetParentResourceName()}/SetInventoryData`,
+    $.post(
+        `https://${GetParentResourceName()}/SetInventoryData`,
         JSON.stringify({
             fromInventory: $fromInv.attr("data-inventory"),
             toInventory: $toInv.attr("data-inventory"),
@@ -1647,7 +1650,8 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                 }
             }
             $.post(`https://${GetParentResourceName()}/PlayDropSound`, JSON.stringify({}));
-            $.post(`https://${GetParentResourceName()}/SetInventoryData`,
+            $.post(
+                `https://${GetParentResourceName()}/SetInventoryData`,
                 JSON.stringify({
                     fromInventory: $fromInv.attr("data-inventory"),
                     toInventory: $toInv.attr("data-inventory"),
@@ -1663,7 +1667,8 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                     toData.combinable != null &&
                     isItemAllowed(fromData.name, toData.combinable.accept)
                 ) {
-                    $.post(`https://${GetParentResourceName()}/getCombineItem`,
+                    $.post(
+                        `https://${GetParentResourceName()}/getCombineItem`,
                         JSON.stringify({ item: toData.combinable.reward }),
                         function(item) {
                             $(".combine-option-text").html(
@@ -1900,7 +1905,8 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                         }
                     }
 
-                    $.post(`https://${GetParentResourceName()}/SetInventoryData`,
+                    $.post(
+                        `https://${GetParentResourceName()}/SetInventoryData`,
                         JSON.stringify({
                             fromInventory: $fromInv.attr("data-inventory"),
                             toInventory: $toInv.attr("data-inventory"),
@@ -1945,7 +1951,8 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                             );
                     }
 
-                    $.post(`https://${GetParentResourceName()}/SetInventoryData`,
+                    $.post(
+                        `https://${GetParentResourceName()}/SetInventoryData`,
                         JSON.stringify({
                             fromInventory: $fromInv.attr("data-inventory"),
                             toInventory: $toInv.attr("data-inventory"),
@@ -2229,7 +2236,8 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                     }
                 }
                 $.post(`https://${GetParentResourceName()}/PlayDropSound`, JSON.stringify({}));
-                $.post(`https://${GetParentResourceName()}/SetInventoryData`,
+                $.post(
+                    `https://${GetParentResourceName()}/SetInventoryData`,
                     JSON.stringify({
                         fromInventory: $fromInv.attr("data-inventory"),
                         toInventory: $toInv.attr("data-inventory"),
@@ -3015,7 +3023,8 @@ var requiredItemOpen = false;
 $(document).on("click", "#rob-money", function(e) {
     e.preventDefault();
     var TargetId = $(this).data("TargetId");
-    $.post(`https://${GetParentResourceName()}/RobMoney`,
+    $.post(
+        `https://${GetParentResourceName()}/RobMoney`,
         JSON.stringify({
             TargetId: TargetId,
         })
@@ -3037,7 +3046,8 @@ $("#item-give").droppable({
         if (amount == 0) {
             amount = fromData.amount;
         }
-        $.post(`https://${GetParentResourceName()}/GiveItem`,
+        $.post(
+            `https://${GetParentResourceName()}/GiveItem`,
             JSON.stringify({
                 inventory: fromInventory,
                 item: fromData,

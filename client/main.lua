@@ -242,10 +242,6 @@ end)
 
 RegisterNetEvent('QBCore:Player:SetPlayerData', function(val)
     PlayerData = val
-    SendNUIMessage({
-        action = 'UpdateCash',
-        cash = PlayerData.money['cash']
-    })
 end)
 
 RegisterNetEvent("qb-inventory:client:closeinv", function()
@@ -323,20 +319,16 @@ RegisterNetEvent('inventory:client:OpenInventory', function(PlayerAmmo, inventor
         if other then
             currentOtherInventory = other.name
         end
-        QBCore.Functions.TriggerCallback('inventory:server:ConvertQuality', function(data)
-            inventory = data.inventory
-            other = data.other
-            SendNUIMessage({
-                action = "open",
-                inventory = inventory,
-                slots = Config.MaxInventorySlots,
-                other = other,
-                maxweight = Config.MaxInventoryWeight,
-                Ammo = PlayerAmmo,
-                maxammo = Config.MaximumAmmoValues
-            })
-            inInventory = true
-        end, inventory, other)
+        SendNUIMessage({
+            action = "open",
+            inventory = inventory,
+            slots = Config.MaxInventorySlots,
+            other = other,
+            maxweight = Config.MaxInventoryWeight,
+            Ammo = PlayerAmmo,
+            maxammo = Config.MaximumAmmoValues
+        })
+        inInventory = true
     end
 end)
 

@@ -120,6 +120,7 @@ local function AddItem(source, item, amount, slot, info)
 	if not Player then return false end
 	local totalWeight = GetTotalWeight(Player.PlayerData.items)
 	local itemInfo = QBCore.Shared.Items[item:lower()]
+
 	if not itemInfo and not Player.Offline then
 		QBCore.Functions.Notify(source, "Item does not exist", 'error')
 		return false
@@ -141,7 +142,7 @@ local function AddItem(source, item, amount, slot, info)
 			TriggerEvent('qb-log:server:CreateLog', 'playerinventory', 'AddItem', 'green', '**' .. GetPlayerName(source) .. ' (citizenid: ' .. Player.PlayerData.citizenid .. ' | id: ' .. source .. ')** got item: [slot:' .. slot .. '], itemname: ' .. Player.PlayerData.items[slot].name .. ', added amount: ' .. amount .. ', new total amount: ' .. Player.PlayerData.items[slot].amount)
 			return true
 		elseif not itemInfo['unique'] and slot or slot and Player.PlayerData.items[slot] == nil then
-			Player.PlayerData.items[slot] = { name = itemInfo['name'], amount = amount, info = info or '', label = itemInfo['label'], description = itemInfo['description'] or '', weight = itemInfo['weight'], type = itemInfo['type'], unique = itemInfo['unique'], useable = itemInfo['useable'], image = itemInfo['image'], shouldClose = itemInfo['shouldClose'], slot = slot, combinable = itemInfo['combinable']}
+			Player.PlayerData.items[slot] = { name = itemInfo['name'], amount = amount, info = info or '', label = itemInfo['label'], description = itemInfo['description'] or '', weight = itemInfo['weight'], type = itemInfo['type'], unique = itemInfo['unique'], useable = itemInfo['useable'], image = itemInfo['image'], shouldClose = itemInfo['shouldClose'], slot = slot, combinable = itemInfo['combinable'] }
 			Player.Functions.SetPlayerData("items", Player.PlayerData.items)
 
 			if Player.Offline then return true end
@@ -152,7 +153,7 @@ local function AddItem(source, item, amount, slot, info)
 		elseif itemInfo['unique'] or (not slot or slot == nil) or itemInfo['type'] == 'weapon' then
 			for i = 1, Config.MaxInventorySlots, 1 do
 				if Player.PlayerData.items[i] == nil then
-					Player.PlayerData.items[i] = { name = itemInfo['name'], amount = amount, info = info or '', label = itemInfo['label'], description = itemInfo['description'] or '', weight = itemInfo['weight'], type = itemInfo['type'], unique = itemInfo['unique'], useable = itemInfo['useable'], image = itemInfo['image'], shouldClose = itemInfo['shouldClose'], slot = i, combinable = itemInfo['combinable']}
+					Player.PlayerData.items[i] = { name = itemInfo['name'], amount = amount, info = info or '', label = itemInfo['label'], description = itemInfo['description'] or '', weight = itemInfo['weight'], type = itemInfo['type'], unique = itemInfo['unique'], useable = itemInfo['useable'], image = itemInfo['image'], shouldClose = itemInfo['shouldClose'], slot = i, combinable = itemInfo['combinable'] }
 					Player.Functions.SetPlayerData("items", Player.PlayerData.items)
 
 					if Player.Offline then return true end
@@ -1979,6 +1980,8 @@ RegisterNetEvent('inventory:server:toggleItem', function(give, item, amount, inf
         end
     end
 end)
+
+
 
 -- Item's
 CreateUsableItem("driver_license", function(source, item)
