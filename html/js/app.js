@@ -777,14 +777,29 @@ function handleDragDrop() {
             toInventory = $(this).parent();
             toAmount = $("#item-amount").val();
 
+            var toDataUnique = toInventory.find("[data-slot=" + toSlot + "]").data("item");
+            var fromDataUnique = fromInventory.find("[data-slot=" + fromSlot + "]").data("item");
+
             if (fromSlot == toSlot && fromInventory == toInventory) {
                 return;
             }
             if (toAmount >= 0) {
-                if (
-                    updateweights(fromSlot, toSlot, fromInventory, toInventory, toAmount)
-                ) {
-                    swap(fromSlot, toSlot, fromInventory, toInventory, toAmount);
+                if (toDataUnique && fromDataUnique && toDataUnique.unique == fromDataUnique.unique) {
+                    if (toDataUnique.combinable) {
+                        if (
+                            updateweights(fromSlot, toSlot, fromInventory, toInventory, toAmount)
+                        ) {
+                            swap(fromSlot, toSlot, fromInventory, toInventory, toAmount);
+                        }
+                    } else {
+                        return;
+                    }
+                } else {
+                    if (
+                        updateweights(fromSlot, toSlot, fromInventory, toInventory, toAmount)
+                    ) {
+                        swap(fromSlot, toSlot, fromInventory, toInventory, toAmount);
+                    }
                 }
             }
         },
