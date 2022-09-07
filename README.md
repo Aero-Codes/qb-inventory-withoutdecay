@@ -11,7 +11,7 @@
 # How to install lj-inventory
 * Download source files from github
 * Drag source files into your resources folder
-* Rename folder from `lj-inventory-main` to `lj-inventory`
+* Rename folder from `qb-inventory-withoutdecay-main` to `qb-inventory`
 
 ### REPLACE ADDITEM EVENT
 ```lua
@@ -20,7 +20,7 @@ TriggerServerEvent("QBCore:Server:AddItem, item, 1)
 
 ### TO
 ```lua
-exports['lj-inventory']:toggleItem(1, itemName, 1)
+exports['qb-inventory']:toggleItem(1, itemName, 1)
 ```
 
 ### REPLACE REMOVEITEM EVENT
@@ -30,7 +30,7 @@ TriggerServerEvent("QBCore:Server:RemoveItem, item, 1)
 
 ### TO
 ```lua
-exports['lj-inventory']:toggleItem(0, itemName, 1)
+exports['qb-inventory']:toggleItem(0, itemName, 1)
 ```
 
 
