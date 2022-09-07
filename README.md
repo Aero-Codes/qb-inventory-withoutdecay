@@ -1,6 +1,7 @@
-### IMPORTANT! WHY DID I RENAMED THE FOLDER ?
+### WHY DID I RENAMED THE FOLDER ?
 >### It was causing problem with the latest qb-core function, Core function was looking for qb-inventory
->### You should name the folder to qb-inventory not (qb-inventory-withoutdecay)
+>### And motive to make this drag and drop for lovely qb peoples 
+>### You should name the folder to qb-inventory not (qb-inventory-withdecay) 
 
 ## Credits:
 >### aj - aj-inventory
